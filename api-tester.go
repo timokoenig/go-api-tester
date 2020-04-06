@@ -64,6 +64,14 @@ func (a *APITester) CompareBody(t *testing.T, expected string) {
 	}
 }
 
+// CompareHeader compares the header value of the given key with the response header
+func (a *APITester) CompareHeader(t *testing.T, key string, expected string) {
+	header := a.rsp.Header.Get(key)
+	if !strings.Contains(header, expected) {
+		t.Fatalf("expected header %s to contain %s; got %s", key, expected, header)
+	}
+}
+
 // CompareStatus compares the expected status with the response status
 func (a *APITester) CompareStatus(t *testing.T, extected int) {
 	if a.rsp.StatusCode != extected {
